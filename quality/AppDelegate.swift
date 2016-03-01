@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Alamofire
-import Gloss
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,20 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        let url = "http://server03.local:60080/login"
-        
-        Alamofire.request(.GET, url, parameters: ["user" : "ash", "password":"mistyS2"], encoding: .URL, headers: nil).responseJSON{ response in
-            
-            if let js = response.result.value!["data"]{
-                let a = Trainer(json: js as! JSON)
-                print(a?.onHandPokemons![0].status)
-            }
-            
-            debugPrint(response.result)
-        }
-        
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {        
         return true
     }
 

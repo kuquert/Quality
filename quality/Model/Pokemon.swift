@@ -46,6 +46,7 @@ struct Pokemon: Decodable{
         self.type1 = type1
         self.type2 = "type2" <~~ json
         self.status = Status(json: status)!
+        
         var a = Array<Skill>()
         for skill in skills{
             a.append(Skill(json: skill)!)
