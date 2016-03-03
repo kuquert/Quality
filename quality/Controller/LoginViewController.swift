@@ -80,7 +80,7 @@ class LoginViewController: UIViewController {
                 print(error)
                 let alertController = UIAlertController(title: "Wrong Credentials", message: "Check your username and/or password and try again", preferredStyle: .Alert)
                 
-                let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+                let cancelAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
                 alertController.addAction(cancelAction)
                 
                 self.presentViewController(alertController, animated: true, completion: nil)
