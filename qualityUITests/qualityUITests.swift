@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import quality
 
 class qualityUITests: XCTestCase {
         
@@ -29,8 +30,21 @@ class qualityUITests: XCTestCase {
     }
     
     func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        XCUIDevice.sharedDevice().orientation =     .Portrait
+        
+        let app = XCUIApplication()
+        app.buttons["login"].tap()
+        // Failed to find matching element please file bug (bugreport.apple.com) and provide output from Console.app
+        app.tables.cells.elementBoundByIndex(0).tap()
+        let backButton = app.navigationBars["quality.DetailView"].childrenMatchingType(.Button).matchingIdentifier("Back").elementBoundByIndex(0)
+        backButton.tap()
+        app.tables.staticTexts["Fighting"].tap()
+        backButton.tap()
+        
+    }
+    
+    func mainFlow() {
+            print("Blabla")
     }
     
 }

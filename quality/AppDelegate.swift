@@ -12,7 +12,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    /*
+    TO-DO
+    Colocar currentTrainer em singleton na APIManager
+    Rever a interface
+    Fazer os testes
+    */
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {        
         return true

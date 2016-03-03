@@ -12,18 +12,16 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    internal var trainer: Trainer?
     private var selectedPokemon: Pokemon?
+    let trainer = APIManager.sharedInstance.currentTrainer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
-        self.nameLabel.text = trainer?.name
-//        trainer?.photo
-        
-        let imageData = NSData(contentsOfURL: NSURL(string: (trainer!.photo))!)
+        self.nameLabel.text = self.trainer.name        
+        let imageData = NSData(contentsOfURL: NSURL(string: (trainer.photo))!)
         self.photoImageView.image = UIImage(data: imageData!)
         
         // Do any additional setup after loading the view.
@@ -44,12 +42,12 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        selectedPokemon = trainer?.onHandPokemons?[indexPath.row]
+        selectedPokemon = trainer.onHandPokemons?[indexPath.row]
         self.performSegueWithIdentifier("showDetail", sender: nil)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (trainer?.onHandPokemons?.count)!
+        return 5
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -57,13 +55,17 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
-        let pokemon = trainer?.onHandPokemons?[indexPath.row]
-        cell.textLabel?.text = pokemon?.name
-        cell.detailTextLabel?.text = pokemon?.type1
-        let url = pokemon?.icon
-        let imageData = NSData(contentsOfURL: NSURL(string: url!)!)
-        cell.imageView?.image = UIImage(data: imageData!)
+        let cell = tableView.dequeueReusableCellWithIdentifier("pokemonCell", forIndexPath: indexPath) as! PokemonTableViewCell
+        
+        let pokemon = (trainer.onHandPokemons?[indexPath.row])!
+        let url = pokemon.icon
+        let imageData = NSData(contentsOfURL: NSURL(string: url)!)
+        
+        cell.typesLabel?.text = pokemon.type2 != nil ? "\(pokemon.type1) , \(pokemon.type2!)" : "\(pokemon.type1)"
+        cell.nameLabel?.text = pokemon.name
+        cell.levelLabel?.text = "Level \(pokemon.level)"
+        cell.numberLabel?.text = "\(pokemon.number)"
+        cell.cellImageView?.image = UIImage(data: imageData!)
         
         return cell
     }
