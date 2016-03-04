@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+    /*
     func configureAppearance(){
         self.userField.layer.cornerRadius = 5
         self.userField.layer.borderWidth = 1
@@ -67,6 +67,7 @@ class LoginViewController: UIViewController {
     func playerItemDidReachEnd(){
         self.player!.seekToTime(kCMTimeZero)
     }
+    */
 
     @IBAction func loginButton(sender: UIButton) {
         let user = userField.text
@@ -79,8 +80,7 @@ class LoginViewController: UIViewController {
             }else{
                 print(error)
                 let alertController = UIAlertController(title: "Wrong Credentials", message: "Check your username and/or password and try again", preferredStyle: .Alert)
-                
-                let cancelAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
+                let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
                 alertController.addAction(cancelAction)
                 
                 self.presentViewController(alertController, animated: true, completion: nil)

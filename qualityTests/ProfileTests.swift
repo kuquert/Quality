@@ -11,34 +11,38 @@ import XCTest
 
 class ProfileTests: XCTestCase {
     
+    var train: Trainer?
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        APIManager.login(user: "ash", password: "mistyS2") { (success, error, trainer) -> () in
+            self.train = trainer
+        }
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
     func testExample() {
-        weak var expectation = expectationWithDescription("loginFunction")
+        print("passou")
+//        weak var expectation = expectationWithDescription("loginFunction")
+//        
+//        APIManager.login(user: "ash", password: "mist") { (success, error, trainer) -> () in
+//            expectation?.fulfill()
+//        }
         
-        APIManager.login(user: "ash", password: "mist") { (success, error, trainer) -> () in
-            expectation?.fulfill()
-        }
-        
-        waitForExpectationsWithTimeout(5) { (error) -> Void in
-            if error == nil{
-                XCTAssertEqual(APIManager.sharedInstance.currentTrainer?.onHandPokemons?.count, 6)
-            }
-        }
+//        waitForExpectationsWithTimeout(5) { (error) -> Void in
+//            if error == nil{
+                XCTAssertEqual(self.train!.onHandPokemons?.count, 6)
+//            }
+//        }
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
-    }
+//    
+//    func testPerformanceExample() {
+//        // This is an example of a performance test case.
+//        self.measureBlock {
+//            // Put the code you want to measure the time of here.
+//        }
+//    }
 }

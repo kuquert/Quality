@@ -29,6 +29,37 @@ class qualityUITests: XCTestCase {
         super.tearDown()
     }
     
+    func testLogin() {
+        let app = XCUIApplication()
+        let userTextField = app.textFields["User"]
+        userTextField.tap()
+        userTextField.buttons["Clear text"].tap()
+        userTextField.typeText("teste")
+        
+        let passwordSecureTextField = app.secureTextFields["Password"]
+        passwordSecureTextField.tap()
+        passwordSecureTextField.buttons["Clear text"].tap()
+        passwordSecureTextField.typeText("teste")
+        
+        let loginButton = app.buttons["login"]
+        loginButton.tap()
+        
+        app.alerts["Wrong Credentials"].collectionViews.buttons["OK"].tap()
+        userTextField.tap()
+        userTextField.buttons["Clear text"].tap()
+        userTextField.typeText("ash")
+        
+        passwordSecureTextField.tap()
+        passwordSecureTextField.buttons["Clear text"].tap()
+        passwordSecureTextField.typeText("mistyS2")
+        
+        loginButton.tap()
+        app.tables.cells.elementBoundByIndex(0).tap()
+        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.tap()
+        app.staticTexts["Pikachu"].tap()
+        app.navigationBars["quality.DetailView"].childrenMatchingType(.Button).matchingIdentifier("Back").elementBoundByIndex(0).tap()
+    }
+    
     func testExample() {
         XCUIDevice.sharedDevice().orientation =     .Portrait
         
